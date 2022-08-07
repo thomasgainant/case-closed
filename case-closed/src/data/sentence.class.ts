@@ -1,59 +1,73 @@
 import type { Language } from "./language.class";
-import type { WordDefinition, Word, WordType } from "./word.class";
+import type { Concept, Word, WordType } from "./word.class";
 
 export class Sentence{
-    public dictionary:WordDefinition[];
+    public dictionary:Concept[];
+    public lang:Language;
 
     public wantedStructure:WordType[] = [];
     public structure:WordType[] = [];
-    public definitions:WordDefinition[] = [];
+    public concepts:Concept[] = [];
     public words:Word[] = [];
 
-    constructor(dictionary:WordDefinition[], structure:WordType[]){
+    constructor(dictionary:Concept[], lang:Language, structure:WordType[]){
         this.dictionary = dictionary;
+        this.lang = lang;
         this.wantedStructure = structure;
     }
 
-    public buildRandom(lang:Language){
-        this.definitions = [];
+    public buildRandom(){
+        this.concepts = [];
 
-        this.structure = lang.getBuildOrder(this.wantedStructure);
+        this.structure = this.lang.getBuildOrder(this.wantedStructure);
         for(let next of this.structure){
-            this.definitions.push(lang.findRandomDefinition(next));
+            this.concepts.push(this.lang.findRandomDefinition(next));
         }
         
         this.words = [];
-        for(let definition of this.definitions){
-            this.words.push(lang.getTranslation(definition));
+        for(let index in this.concepts){
+            let definition = this.concepts[index];
+            this.words.push(this.lang.getTranslation(definition, this.structure[index], this));
         }
     }
 
     public clone(lang:Language){
-        let clone = new Sentence(this.dictionary, this.wantedStructure);
+        let clone = new Sentence(this.dictionary, lang, this.wantedStructure);
 
-        clone.definitions = [];
+        clone.concepts = [];
 
         clone.structure = lang.getBuildOrder(clone.wantedStructure);
         for(let next of clone.structure){
             let posInOriginal = this.structure.indexOf(next);
-            clone.definitions.push(this.definitions[posInOriginal]);
+            clone.concepts.push(this.concepts[posInOriginal]);
         }
 
         clone.words = [];
-        for(let definition of clone.definitions){
-            clone.words.push(lang.getTranslation(definition));
+        for(let index in clone.concepts){
+            let definition = this.concepts[index];
+            clone.words.push(lang.getTranslation(definition, this.structure[index], this));
         }
 
         return clone;
     }
 
+    public getConcept(functionInSentence:WordType){
+        for(let index in this.structure){
+            let currentFunction = this.structure[index];
+            if(currentFunction == functionInSentence){
+                return this.concepts[index];
+            }
+        }
+    }
+
     public toString(){
         let result = "";
-        for(let word of this.words){
+        for(let index in this.words){
+            let word = this.words[index];
             if(result != ""){
                 result += " ";
             }
-            result += word.toString();
+            result += this.lang.getVariant(word, this.structure[index], this);
         }
         return result;
     }

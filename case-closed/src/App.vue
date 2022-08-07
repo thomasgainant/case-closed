@@ -7,14 +7,14 @@
 </template>
 
 <style>
-  html, body{
+  html, body, #app{
     height: 100%;
     width: 100%;
     margin: 0;
     background: #D0677E;
   }
 
-  #app{
+  #content{
     display: flex;
     height: 100%;
     width: 100%;

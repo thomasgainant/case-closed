@@ -2,34 +2,74 @@
 import { English } from '@/data/english.language';
 import { Polish } from '@/data/polish.language';
 import { Sentence } from '@/data/sentence.class';
-import { Word, WordDefinition, WordType } from '@/data/word.class';
+import { Word, Concept, WordType } from '@/data/word.class';
 
 export default {
     beforeMount(){
-        let dictionnary:WordDefinition[] = [
-        new WordDefinition({
-        'en': new Word("dog", [WordType.Subject, WordType.Object, WordType.PersonInfo]),
-        'pl': new Word("pies", [WordType.Subject, WordType.Object, WordType.PersonInfo]),
+    this.dictionnary = [
+        new Concept({
+        'en': new Word({"default":"dog"}, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
+        'pl': new Word({"default":"pies"}, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
         }),
-        new WordDefinition({
-        'en': new Word("cat", [WordType.Subject, WordType.Object, WordType.PersonInfo]),
-        'pl': new Word("kot", [WordType.Subject, WordType.Object, WordType.PersonInfo]),
+        new Concept({
+        'en': new Word({"default":"cat"}, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
+        'pl': new Word({"default":"kot"}, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
         }),
-        new WordDefinition({
-        'en': new Word("eat", [WordType.Verb]),
-        'pl': new Word("jeść", [WordType.Verb]),
+        new Concept({
+        'en': new Word({
+            "default":"eat",
+            "firstPerson": "eat",
+            "secondPerson": "eat",
+            "thirdPerson": "eats",
+            "firstPersonPlural": "eat",
+            "secondPersonPlural": "eat",
+            "thirdPersonPlural": "eat"
+            }, [WordType.Verb]),
+        'pl': new Word({
+            "default":"jeść",
+            "firstPerson": "jem",
+            "secondPerson": "jesz",
+            "thirdPerson": "je",
+            "firstPersonPlural": "jemy",
+            "secondPersonPlural": "jecie",
+            "thirdPersonPlural": "jedzą"
+        }, [WordType.Verb]),
+        }),
+        new Concept({
+        'en': new Word({
+            "default":"chase",
+            "firstPerson": "chase",
+            "secondPerson": "chase",
+            "thirdPerson": "chases",
+            "firstPersonPlural": "chase",
+            "secondPersonPlural": "chase",
+            "thirdPersonPlural": "chase"
+            }, [WordType.Verb]),
+        'pl': new Word({
+            "default":"ścigać",
+            "firstPerson": "ścigam",
+            "secondPerson": "ścigasz",
+            "thirdPerson": "ściga",
+            "firstPersonPlural": "ścigamy",
+            "secondPersonPlural": "ścigacie",
+            "thirdPersonPlural": "ścigają"
+        }, [WordType.Verb]),
         }),
     ];
 
-    let polish = new Polish(dictionnary);
-    let english = new English(dictionnary);
-
-    this.sentence = new Sentence(dictionnary, [WordType.Subject, WordType.Verb, WordType.Object]);
-    this.sentence.buildRandom(polish);
-    this.translation = this.sentence.clone(english);
+    this.polish = new Polish(this.dictionnary);
+    this.english = new English(this.dictionnary);
+    },
+    methods: {
+        generateSentence(){
+            this.sentence = new Sentence(this.dictionnary, this.polish, [WordType.Subject, WordType.Verb, WordType.Object]);
+            this.sentence.buildRandom(this.polish);
+            this.translation = this.sentence.clone(this.english);
+        }
     },
     mounted(){
         //console.log(this.sentence);
+        this.generateSentence();
     },
     data() {
         return {
@@ -41,10 +81,12 @@ export default {
 </script>
 
 <template>
-  <div class="sentence" v-if="sentence">
-    {{ sentence.toString() }}
-    <div class="translation">{{ translation.toString() }}</div>
-  </div>
+    <div id="content" @click="generateSentence()">
+        <div class="sentence" v-if="sentence">
+            {{ sentence.toString() }}
+            <div class="translation">{{ translation.toString() }}</div>
+        </div>
+    </div>
 </template>
 
 <style>
@@ -61,7 +103,7 @@ export default {
     }
 
     .translation{
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: 'Courier New', Courier, monospace;
         font-size: 2rem;
     }
 </style>

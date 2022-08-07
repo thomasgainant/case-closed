@@ -1,10 +1,11 @@
-import { WordType, type WordDefinition } from "./word.class";
+import type { Sentence } from "./sentence.class";
+import { Word, WordType, type Concept } from "./word.class";
 
 export class Language{
-    private dictionary:WordDefinition[];
+    private dictionary:Concept[];
     public id:string = "";
 
-    constructor(dictionary:WordDefinition[]){
+    constructor(dictionary:Concept[]){
         this.dictionary = dictionary;
     }
 
@@ -18,14 +19,18 @@ export class Language{
         return order;
     }
 
-    public findRandomDefinition(type:WordType):WordDefinition{
+    public findRandomDefinition(type:WordType):Concept{
         let possibles = this.dictionary.filter((definition)=>{
             return this.getTranslation(definition).possibleTypes.indexOf(type) > -1;
         });
         return possibles[Math.floor(Math.random()*possibles.length)];
     }
 
-    public getTranslation(definition:WordDefinition){
+    public getTranslation(definition:Concept, functionInSentence:WordType | undefined = undefined, sentence:Sentence | undefined = undefined){
         return definition.translations[this.id];
+    }
+
+    public getVariant(word:Word, functionInSentence:WordType | undefined = undefined, sentence:Sentence | undefined = undefined):string{
+        return word.get();
     }
 }

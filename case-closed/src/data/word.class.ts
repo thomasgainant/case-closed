@@ -15,7 +15,7 @@ export enum Gender{
     Neutral
 }
 
-export class WordDefinition{
+export class Concept{
     public translations:{
         [key:string]:Word;
     } = {};
@@ -27,14 +27,17 @@ export class WordDefinition{
 }
 
 export class Word{
-    public value:string = "";
+    public values:{[key:string]:string} = {};
     public possibleTypes:WordType[] = [];
-    constructor(value:string, possibleTypes:WordType[]){
-        this.value = value;
+    constructor(values:{[key:string]:string}, possibleTypes:WordType[]){
+        this.values = values;
         this.possibleTypes = possibleTypes;
     }
-    public toString(){
-        return ""+this.value;
+    public get(variant:string = "default"){
+        if(variant != "default" && this.values.hasOwnProperty(variant))
+            return ""+this.values[variant];
+
+        return ""+this.values["default"];
     }
 }
 
