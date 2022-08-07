@@ -11,6 +11,7 @@ export class English extends Language{
     public getVariant(word:Word, functionInSentence:WordType | undefined = undefined, sentence:Sentence | undefined = undefined):string{
         switch(functionInSentence){
             case WordType.Subject:
+                return "the "+word.get();
             break;
             case WordType.Verb:
                 let subject = sentence?.getConcept(WordType.Subject);
@@ -19,6 +20,7 @@ export class English extends Language{
                 }
             break;
             case WordType.Object:
+                return "the "+word.get();
             break;
             case WordType.PersonInfo:
             break;

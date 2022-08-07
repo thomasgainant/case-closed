@@ -9,11 +9,75 @@ export default {
     this.dictionnary = [
         new Concept({
         'en': new Word({"default":"dog"}, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
-        'pl': new Word({"default":"pies"}, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
+        'pl': new Word({
+            "default":"pies",
+            "nominative": "pies",
+            "genitive": "psa",
+            "dative": "psu",
+            "accusative": "psa",
+            "instrumental": "psem",
+            "locative": "psie",
+            "vocative": "psie"
+        }, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
         }),
         new Concept({
         'en': new Word({"default":"cat"}, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
-        'pl': new Word({"default":"kot"}, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
+        'pl': new Word({
+            "default":"kot",
+            "nominative": "kot",
+            "genitive": "kota",
+            "dative": "kotu",
+            "accusative": "kota",
+            "instrumental": "kotem",
+            "locative": "kocie",
+            "vocative": "kocie"
+        }, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
+        }),
+        new Concept({
+        'en': new Word({"default":"food"}, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
+        'pl': new Word({
+            "default":"jedzenie",
+            "nominative": "jedzenie",
+            "genitive": "jedzenia",
+            "dative": "jedzeniu",
+            "accusative": "jedzenie",
+            "instrumental": "jedzeniem",
+            "locative": "jedzeniu",
+            "vocative": "jedzenie"
+        }, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
+        }),
+        new Concept({
+        'en': new Word({"default":"boy"}, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
+        'pl': new Word({
+            "default":"chłopiec",
+            "nominative": "chłopiec",
+            "genitive": "chłopca",
+            "dative": "chłopcu",
+            "accusative": "chłopca",
+            "instrumental": "chłopcem",
+            "locative": "chłopcu",
+            "vocative": "chłopcze"
+        }, [WordType.Subject, WordType.Object, WordType.PersonInfo]),
+        }),
+        new Concept({
+        'en': new Word({
+            "default":"like",
+            "firstPerson": "like",
+            "secondPerson": "like",
+            "thirdPerson": "likes",
+            "firstPersonPlural": "like",
+            "secondPersonPlural": "like",
+            "thirdPersonPlural": "like"
+            }, [WordType.Verb]),
+        'pl': new Word({
+            "default":"lubić",
+            "firstPerson": "lubię",
+            "secondPerson": "lubisz",
+            "thirdPerson": "lubi",
+            "firstPersonPlural": "lubimy",
+            "secondPersonPlural": "lubicie",
+            "thirdPersonPlural": "lubią"
+        }, [WordType.Verb]),
         }),
         new Concept({
         'en': new Word({

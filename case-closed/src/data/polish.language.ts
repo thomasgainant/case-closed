@@ -11,6 +11,7 @@ export class Polish extends English{
     public getVariant(word:Word, functionInSentence:WordType | undefined = undefined, sentence:Sentence | undefined = undefined):string{
         switch(functionInSentence){
             case WordType.Subject:
+                return word.get("nominative");
             break;
             case WordType.Verb:
                 let subject = sentence?.getConcept(WordType.Subject);
@@ -19,6 +20,7 @@ export class Polish extends English{
                 }
             break;
             case WordType.Object:
+                return word.get("accusative");
             break;
             case WordType.PersonInfo:
             break;
