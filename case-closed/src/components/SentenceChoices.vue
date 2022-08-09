@@ -1,7 +1,8 @@
 <script lang="ts">
+import { defineComponent } from 'vue';
 import SentenceChoice from './SentenceChoice.vue';
 
-export default {
+export default defineComponent({
     props: ["choices"],
     mounted() {
         
@@ -23,7 +24,7 @@ export default {
         }
     },
     components: { SentenceChoice }
-}
+})
 </script>
 
 <template>
