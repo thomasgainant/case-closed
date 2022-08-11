@@ -1,8 +1,10 @@
 <script setup lang="ts">
+  import Info from '../src/components/Info.vue';
   import SentenceBlock from '../src/components/SentenceBlock.vue';
 </script>
 
 <template>
+  <Info></Info>
   <SentenceBlock></SentenceBlock>
 </template>
 
@@ -12,6 +14,19 @@
     width: 100%;
     margin: 0;
     background: #D0677E;
+  }
+
+  a{
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  a:hover{
+    text-decoration: underline;
+  }
+
+  .bold{
+    font-weight: bold;
   }
 
   #content{
