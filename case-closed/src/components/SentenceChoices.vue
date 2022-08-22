@@ -49,6 +49,14 @@ export default defineComponent({
 
         .choices .choice{
             display: block;
+            height: 5rem;
+            box-sizing: border-box;
+
+            margin: 0;
+            padding: 0;
+            padding-bottom: 1rem;
+
+            line-height: 4rem;
             background: #D0677E;
             color: rgba(255, 255, 255, 0.75);
         }
